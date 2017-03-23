@@ -19,7 +19,7 @@ ExternalProject_Add(zlib
   GIT_REPOSITORY    https://github.com/madler/zlib.git
   GIT_TAG           master
   SOURCE_DIR        "${ZLIB_SRC_DIR}"
-  BINARY_DIR        "${CMAKE_BINARY_DIR}/zlib-build"
+  BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/zlib-build"
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
   INSTALL_COMMAND   ""

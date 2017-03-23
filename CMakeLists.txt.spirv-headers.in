@@ -19,7 +19,7 @@ ExternalProject_Add(spirv-headers
   GIT_REPOSITORY    https://github.com/KhronosGroup/SPIRV-Headers.git
   GIT_TAG           master
   SOURCE_DIR        "${SPIRV-Headers_SOURCE_DIR}"
-  BINARY_DIR        "${CMAKE_BINARY_DIR}/spirv-headers-build"
+  BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-build"
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
   INSTALL_COMMAND   ""
