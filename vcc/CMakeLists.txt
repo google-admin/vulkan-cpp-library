@@ -116,5 +116,5 @@ generate_export_header(vcc
 target_link_libraries(vcc types ${VULKAN_LIBRARY})
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  target_link_libraries(vcc pthread xcb atomic)
+  target_link_libraries(vcc pthread xcb xcb-keysyms atomic)
 endif()

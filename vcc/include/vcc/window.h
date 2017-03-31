@@ -32,7 +32,9 @@
 #include <vcc/surface.h>
 #ifdef _WIN32
 #include <windows.h>
-#endif // WIN32
+#elif defined(VK_USE_PLATFORM_XCB_KHR)
+#include <xcb/xcb_keysyms.h>
+#endif
 
 namespace vcc {
 namespace window {
@@ -162,7 +164,8 @@ private:
 		, connection(std::forward<connection_type>(connection))
 		, window(std::forward<window_handle_type>(window))
 		, extent(extent)
-    , atom_wm_delete_window(nullptr, free)
+		, atom_wm_delete_window(nullptr, free)
+		, key_symbols(nullptr, xcb_key_symbols_free)
 #endif // VK_USE_PLATFORM_XCB_KHR
 		, device(device), graphics_queue(graphics_queue) {}
 
@@ -177,6 +180,8 @@ private:
 	typedef std::unique_ptr<xcb_intern_atom_reply_t, decltype(&free)> atom_reply_t;
 	atom_reply_t atom_wm_delete_window;
 	VkExtent2D extent;
+	typedef std::unique_ptr<xcb_key_symbols_t, decltype(&xcb_key_symbols_free)> key_symbols_t;
+	key_symbols_t key_symbols;
 #endif // __ANDROID__
 	type::supplier<const instance::instance_type> instance;
 	surface::surface_type surface;
