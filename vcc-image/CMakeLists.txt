@@ -13,7 +13,7 @@
 include_directories(include)
 include_directories(../types/include)
 include_directories(../vcc/include)
-include_directories(${CMAKE_BINARY_DIR}/vcc/include)
+include_directories(${VULKAN_CPP_LIBRARY_BINARY_DIR}/vcc/include)
 include_directories(${GLI_SRC_DIR})
 include_directories(${GLI_SRC_DIR}/external)
 if(NOT PNG_INCLUDE_DIR STREQUAL "")

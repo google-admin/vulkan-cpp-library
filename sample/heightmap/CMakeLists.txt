@@ -13,7 +13,7 @@
 
 include_directories(../../types/include)
 include_directories(../../vcc/include)
-include_directories(${CMAKE_BINARY_DIR}/vcc/include)
+include_directories(${VULKAN_CPP_LIBRARY_BINARY_DIR}/vcc/include)
 include_directories(../../vcc-image/include)
 include_directories(${CPP_FRP_SRC_DIR}/cpp-frp/include)
 include_directories(${GLM_SRC_DIR})

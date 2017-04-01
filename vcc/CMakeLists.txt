@@ -12,7 +12,7 @@
 #
 include(GenerateExportHeader)
 include_directories(include)
-include_directories(${CMAKE_BINARY_DIR}/vcc/include)
+include_directories(${VULKAN_CPP_LIBRARY_BINARY_DIR}/vcc/include)
 include_directories(../types/include)
 include_directories(${GLM_SRC_DIR})
 if(NOT VULKAN_SDK_DIR STREQUAL "")
@@ -116,5 +116,5 @@ generate_export_header(vcc
 target_link_libraries(vcc types ${VULKAN_LIBRARY})
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  target_link_libraries(vcc pthread xcb atomic)
+  target_link_libraries(vcc pthread xcb xcb-keysyms atomic)
 endif()

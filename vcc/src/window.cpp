@@ -426,6 +426,7 @@ window_type create(
 	xcb_intern_atom_cookie_t cookie2(xcb_intern_atom(window.connection.get(), 0, 16,
 		"WM_DELETE_WINDOW"));
 	window.atom_wm_delete_window.reset(xcb_intern_atom_reply(window.connection.get(), cookie2, 0));
+	window.key_symbols.reset(xcb_key_symbols_alloc(window.connection.get()));
 
 	xcb_change_property(window.connection.get(), XCB_PROP_MODE_REPLACE, window.window, reply->atom,
 		4, 32, 1, &window.atom_wm_delete_window->atom);
@@ -621,13 +622,13 @@ int run(window_type &window, const swapchain_create_callback_type &swapchain_cre
         } break;
       case XCB_KEY_PRESS: {
         auto kp = (xcb_key_press_event_t *) event.get();
-        // TODO(gardell): Translate button
-        input_callbacks.key_down_callback(keycode_type(kp->detail));
+        input_callbacks.key_down_callback(keycode_type(xcb_key_symbols_get_keysym(
+			window.key_symbols.get(), kp->detail, 0)));
         } break;
       case XCB_KEY_RELEASE: {
         auto kr = (xcb_key_release_event_t *) event.get();
-        // TODO(gardell): Translate button
-        input_callbacks.key_up_callback(keycode_type(kr->detail));
+        input_callbacks.key_up_callback(keycode_type(xcb_key_symbols_get_keysym(
+			window.key_symbols.get(), kr->detail, 0)));
         } break;
       }
     }

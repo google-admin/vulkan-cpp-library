@@ -15,29 +15,32 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(VULKAN_SDK_DIR "" CACHE PATH "Path to the Vulkan SDK")
 
+set(VULKAN_CPP_LIBRARY_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(VULKAN_CPP_LIBRARY_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
 #
 # SPIRV-Headers
 #
 
-set(SPIRV-Headers_SOURCE_DIR ${CMAKE_BINARY_DIR}/spirv-headers-src)
+set(SPIRV-Headers_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-src)
 
 # Download and unpack SPIRV-Headers at configure time
 configure_file(CMakeLists.txt.spirv-headers.in
                spirv-headers-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/spirv-headers-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/spirv-headers-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-download)
 
 # Add SPIRV-Headers directly to our build.
-add_subdirectory(${CMAKE_BINARY_DIR}/spirv-headers-src
-                 ${CMAKE_BINARY_DIR}/spirv-headers-build)
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-src
+                 ${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-build)
 
 #
 # SPIRV-Tools
 #
 
-set(SPIRV_TOOLS_SRC ${CMAKE_BINARY_DIR}/spirv-tools-src)
+set(SPIRV_TOOLS_SRC ${CMAKE_CURRENT_BINARY_DIR}/spirv-tools-src)
 
 SET(SPIRV_SKIP_EXECUTABLES OFF CACHE BOOL "" FORCE)
 SET(SPIRV_SKIP_TESTS OFF CACHE BOOL "" FORCE)
@@ -46,13 +49,13 @@ SET(SPIRV_SKIP_TESTS OFF CACHE BOOL "" FORCE)
 configure_file(CMakeLists.txt.spirv-tools.in
                spirv-tools-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/spirv-tools-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/spirv-tools-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/spirv-tools-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/spirv-tools-download)
 
 # Add SPIRV-Tools directly to our build.
-add_subdirectory(${CMAKE_BINARY_DIR}/spirv-tools-src
-                 ${CMAKE_BINARY_DIR}/spirv-tools-build)
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/spirv-tools-src
+                 ${CMAKE_CURRENT_BINARY_DIR}/spirv-tools-build)
 
 #
 # glm
@@ -60,29 +63,29 @@ add_subdirectory(${CMAKE_BINARY_DIR}/spirv-tools-src
 
 add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
-set(GLM_SRC_DIR ${CMAKE_BINARY_DIR}/glm-src)
+set(GLM_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/glm-src)
 
 # Download and unpack glm at configure time
 configure_file(CMakeLists.txt.glm.in
                glm-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glm-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/glm-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glm-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/glm-download)
 
 #
 # gli
 #
 
-set(GLI_SRC_DIR ${CMAKE_BINARY_DIR}/gli-src)
+set(GLI_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/gli-src)
 
 # Download and unpack gli at configure time
 configure_file(CMakeLists.txt.gli.in
                gli-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/gli-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gli-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/gli-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gli-download)
 
 if(NOT DEFINED ANDROID_NDK)
 
@@ -94,9 +97,9 @@ if(NOT DEFINED ANDROID_NDK)
 configure_file(CMakeLists.txt.googletest.in
                googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download)
 
 # Prevent GoogleTest from overriding our compiler/linker options
 # when building with Visual Studio
@@ -105,8 +108,8 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 # Add googletest directly to our build. This adds
 # the following targets: gtest, gtest_main, gmock
 # and gmock_main
-add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
-                 ${CMAKE_BINARY_DIR}/googletest-build)
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
+                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build)
 
 #
 # Glslang
@@ -116,66 +119,66 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 configure_file(CMakeLists.txt.glslang.in
                glslang-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glslang-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/glslang-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/glslang-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/glslang-download)
 
 # Add glslang directly to our build.
-add_subdirectory(${CMAKE_BINARY_DIR}/glslang-src
-                 ${CMAKE_BINARY_DIR}/glslang-build)
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/glslang-src
+                 ${CMAKE_CURRENT_BINARY_DIR}/glslang-build)
 
 
 #
 # OpenVR
 #
 
-set(OPENVR_SOURCE_DIR ${CMAKE_BINARY_DIR}/openvr)
+set(OPENVR_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/openvr)
 
 # Download and unpack OpenVR at configure time
 configure_file(CMakeLists.txt.openvr.in
                openvr-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/openvr-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/openvr-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/openvr-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/openvr-download)
 
 #
 # zlib
 #
 
 set(SKIP_INSTALL_ALL true)
-set(ZLIB_SRC_DIR ${CMAKE_BINARY_DIR}/zlib-src)
+set(ZLIB_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/zlib-src)
 
 # Download and unpack zlib at configure time
 configure_file(CMakeLists.txt.zlib.in
                zlib-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/zlib-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/zlib-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/zlib-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/zlib-download)
 
 # Add zlib directly to our build.
 add_subdirectory(${ZLIB_SRC_DIR}
-                 ${CMAKE_BINARY_DIR}/zlib-build)
+                 ${CMAKE_CURRENT_BINARY_DIR}/zlib-build)
 
 set(ZLIB_LIBRARY zlib)
-set(ZLIB_INCLUDE_DIR ${ZLIB_SRC_DIR} ${CMAKE_BINARY_DIR}/zlib-build)
+set(ZLIB_INCLUDE_DIR ${ZLIB_SRC_DIR} ${CMAKE_CURRENT_BINARY_DIR}/zlib-build)
 
 #
 # png
 #
 
-set(PNG_SRC_DIR ${CMAKE_BINARY_DIR}/png-src)
-set(PNG_BUILD_DIR ${CMAKE_BINARY_DIR}/png-build)
+set(PNG_SRC_DIR ${CMAKE_CURRENT_BINARY_DIR}/png-src)
+set(PNG_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/png-build)
 set(PNG_INCLUDE_DIR ${PNG_SRC_DIR} ${PNG_BUILD_DIR})
 
 # Download and unpack png at configure time
 configure_file(CMakeLists.txt.png.in
                png-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/png-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/png-download)
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/png-download)
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/png-download)
 
 # Add png directly to our build.
 add_subdirectory(${PNG_SRC_DIR} ${PNG_BUILD_DIR})

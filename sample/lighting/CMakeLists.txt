@@ -14,7 +14,7 @@
 include_directories(include)
 include_directories(../../types/include)
 include_directories(../../vcc/include)
-include_directories(${CMAKE_BINARY_DIR}/vcc/include)
+include_directories(${VULKAN_CPP_LIBRARY_BINARY_DIR}/vcc/include)
 include_directories(${GLM_SRC_DIR})
 if(NOT VULKAN_SDK_DIR STREQUAL "")
   include_directories(${VULKAN_SDK_DIR}/include)

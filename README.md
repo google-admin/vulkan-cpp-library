@@ -82,14 +82,14 @@ The library is thread-safe as required by the Vulkan specification, `2.5 Threadi
 Notice that `Implicit Externally Synchronized Parameters` is not included.
 ### OpenVR
 Samples include an OpenVR example. This simple demo renders the models of the connected devices like trackers and controllers. It supports lazy loading and recompiles the command buffers when any new devices are added or removed.
-##Install
-###Linux/XCB
+## Install
+### Linux/XCB
 `cmake .` downloads all the dependencies needed. `cmake --build .` compiles the libraries and samples. 
-###Android
+### Android
 Install `Android Studio` and the `NDK`. `SDK 25` is required. Import the root project directory. Initial building and synchronizing will take a very long time, as it will download the dependency projects needed.
 
 **Note:** Textures are copied to the `assets/` and `res/` folders of the respective projects. However, `*.spv` compiled shaders are not generated. These must be copied to the `assets/` folder. 
-###Visual Studio 2015
+### Visual Studio 2015
 Only 2015 is supported. The C++11 support in previous versions is not sufficient.
 `cmake -DVULKAN_SDK_DIR:PATH=<path-to-vulkan-sdk> .` downloads all the dependencies and sets up the projects.
 Either use  `cmake --build .` to compile or open the generated  `.sln`.

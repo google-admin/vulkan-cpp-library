@@ -14,7 +14,7 @@
 include_directories(include)
 include_directories(../../types/include)
 include_directories(../../vcc/include)
-include_directories(${CMAKE_BINARY_DIR}/vcc/include)
+include_directories(${VULKAN_CPP_LIBRARY_BINARY_DIR}/vcc/include)
 include_directories(../../vcc-image/include)
 include_directories(${GLM_SRC_DIR})
 include_directories(${OPENVR_SOURCE_DIR}/headers)
