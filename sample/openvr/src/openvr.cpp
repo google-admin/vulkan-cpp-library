@@ -480,13 +480,13 @@ int main(int argc, char **argv) {
 
 	typedef thread_safe_map_with_callback<uint32_t, instance_type>
 		instance_map_type;
-	instance_map_type instances([&](const instance_map_type::iterator &begin,
-			const instance_map_type::iterator &end) {
+	auto callback = [&](const instance_map_type::iterator &begin,
+		const instance_map_type::iterator &end) {
 		std::vector<type::supplier<const vcc::command_buffer::command_buffer_type>>
 			command_buffers;
 		command_buffers.reserve(std::distance(begin, end));
 		std::transform(begin, end, std::back_inserter(command_buffers),
-				[](instance_map_type::value_type &value) {
+			[](instance_map_type::value_type &value) {
 			return std::ref(value.second.command_buffer);
 		});
 		shared_command_buffer =
@@ -496,7 +496,8 @@ int main(int argc, char **argv) {
 		update_matrix_callback = recalculate_update_matrix_callback(
 			mat4Projection, begin, end);
 
-	});
+	};
+	instance_map_type instances(callback);
 
 	const VkViewport viewports[] = {
 		vr_instance.get_viewport(0, 0, 1), vr_instance.get_viewport(1, 0, 1) };
