@@ -18,7 +18,7 @@ include_directories(../../vcc-image/include)
 include_directories(${GLM_SRC_DIR})
 if(NOT VULKAN_SDK_DIR STREQUAL "")
   include_directories(${VULKAN_SDK_DIR}/include)
-  link_directories(${VULKAN_SDK_DIR}/bin)
+  link_directories(${VULKAN_SDK_DIR}/lib)
 endif()
 
 set(SAMPLE_NORMAL_MAPPING_AND_CUBE_TEXTURE_SRCS
